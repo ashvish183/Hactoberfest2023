@@ -1,4 +1,4 @@
-##Hacktoberfest - 2023
+## Hacktoberfest - 2023
 
 This repository contains code for various data structures and algorithms (DSA) problems.
 
