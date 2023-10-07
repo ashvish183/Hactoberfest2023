@@ -1,0 +1,68 @@
+// rotates the array to the right by k steps
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int> temp(n);
+
+        // Rotate the elements and store them in the 'temp' array
+        for (int i = 0; i < n; i++) {
+            temp[(i + k) % n] = nums[i];
+        }
+
+        // Copy the rotated elements back to the 'nums' array
+        for (int i = 0; i < n; i++) {
+            nums[i] = temp[i];
+        }
+    }
+};
+
+int main() {
+    int n, k;
+
+    // Input the size of the array
+    cout << "Enter the size of the array: ";
+    cin >> n;
+
+    vector<int> nums(n);
+
+    // Input the elements of the array
+    cout << "Enter the elements of the array:" << endl;
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    // Input the value of k
+    cout << "Enter the number of steps to rotate (k): ";
+    cin >> k;
+
+    Solution solution;
+
+    // Rotate the array 'nums' by k steps
+    solution.rotate(nums, k);
+
+    // Output the rotated array
+    cout << "Rotated array:" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << nums[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+/*
+Input : 
+Enter the size of the array: 8
+Enter the elements of the array:
+1 2 5 6 7 8 -1 5
+Enter the number of steps to rotate (k): 3
+Output
+Rotated array:
+8 -1 5 1 2 5 6 7
+*/
