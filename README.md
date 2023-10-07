@@ -1,4 +1,6 @@
-## This repository is maintained for Hactoberfest - 2023 and a collection of resources for beginners who want to contribute in open source projects and learn how it works, what are the best practices and many more.
+##
+
+This repository is maintained for Hactoberfest - 2023 and a collection of resources for beginners who want to contribute in open source projects and learn how it works, what are the best practices and many more.
 
 This repository contains code for various data structures and algorithms (DSA) problems. 
 
