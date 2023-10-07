@@ -1,0 +1,83 @@
+// C++ code to implement the above approach that uses the
+// morris traversal algorithm
+#include <algorithm>
+#include <iostream>
+ 
+using namespace std;
+ 
+// A tree node
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+ 
+// Create a new node
+Node* newNode(int data)
+{
+    Node* node = new Node;
+    node->data = data;
+    node->left = node->right = NULL;
+    return (node);
+}
+ 
+// Morris traversal to find the diameter of the binary tree
+int findDiameter(Node* root)
+{
+    int ans = 0;
+    Node* curr = root;
+ 
+    while (curr != NULL) {
+        if (curr->left == NULL) {
+            curr = curr->right;
+        }
+        else {
+            Node* pre = curr->left;
+            while (pre->right != NULL && pre->right != curr)
+                pre = pre->right;
+            if (pre->right == NULL) {
+                pre->right = curr;
+                curr = curr->left;
+            }
+            else {
+                pre->right = NULL;
+                int leftHeight = 0, rightHeight = 0;
+                Node* temp = curr->left;
+                while (temp != NULL) {
+                    leftHeight++;
+                    temp = temp->right;
+                }
+                temp = curr->right;
+                while (temp != NULL) {
+                    rightHeight++;
+                    temp = temp->left;
+                }
+                ans = max(ans,
+                          leftHeight + rightHeight + 1);
+                curr = curr->right;
+            }
+        }
+    }
+    return ans;
+}
+ 
+// Driver code
+int main()
+{
+    // Create the given binary tree
+    Node* root = newNode(1);
+    root->left = newNode(2);
+    root->right = newNode(3);
+    root->left->left = newNode(4);
+    root->left->right = newNode(5);
+ 
+    // Find the diameter of the binary tree using Morris
+    // traversal
+    int diameter = findDiameter(root);
+ 
+    // Print the diameter of the binary tree
+    cout << "The diameter of given binary tree is "
+         << diameter << endl;
+ 
+    return 0;
+}
