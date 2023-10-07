@@ -1,5 +1,4 @@
-// C++ program to print all elements that
-// appear more than once.
+// C++ program to print all duplicate elements in array
 #include <bits/stdc++.h>
 using namespace std;
 
