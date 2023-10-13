@@ -1,0 +1,83 @@
+#include <iostream>
+#include <vector>
+#include <list>
+
+using namespace std;
+
+// Hash Map Entry
+template <typename K, typename V>
+struct HashMapEntry {
+    K key;
+    V value;
+    HashMapEntry(K k, V v) : key(k), value(v) {}
+};
+
+// Hash Map
+template <typename K, typename V>
+class HashMap {
+private:
+    vector<list<HashMapEntry<K, V>>> table;
+    int capacity;
+
+public:
+    HashMap(int capacity = 10) {
+        this->capacity = capacity;
+        table.resize(capacity);
+    }
+
+    void put(K key, V value) {
+        int index = hashFunction(key);
+        for (auto& entry : table[index]) {
+            if (entry.key == key) {
+                entry.value = value; // Update the value if key exists
+                return;
+            }
+        }
+        table[index].push_back(HashMapEntry<K, V>(key, value));
+    }
+
+    V get(K key) {
+        int index = hashFunction(key);
+        for (auto& entry : table[index]) {
+            if (entry.key == key) {
+                return entry.value;
+            }
+        }
+        throw runtime_error("Key not found in hash map.");
+    }
+
+    void remove(K key) {
+        int index = hashFunction(key);
+        for (auto it = table[index].begin(); it != table[index].end(); ++it) {
+            if (it->key == key) {
+                table[index].erase(it); // Remove the entry
+                return;
+            }
+        }
+        throw runtime_error("Key not found in hash map.");
+    }
+
+    int hashFunction(K key) {
+        return hash<K>{}(key) % capacity;
+    }
+};
+
+int main() {
+    HashMap<string, int> hashMap;
+    hashMap.put("one", 1);
+    hashMap.put("two", 2);
+    hashMap.put("three", 3);
+
+    cout << "Value for 'two': " << hashMap.get("two") << endl;
+
+    hashMap.remove("two");
+
+    cout << "Value for 'two' after removal: ";
+    try {
+        cout << hashMap.get("two") << endl;
+    } catch (const runtime_error& e) {
+        cout << e.what() << endl;
+    }
+
+    return 0;
+}
