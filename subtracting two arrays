@@ -1,0 +1,17 @@
+def subtract_arrays(array1, array2):
+  """
+  Subtracts two arrays.
+
+  Args:
+    array1: The first array.
+    array2: The second array.
+
+  Returns:
+    The difference of the two arrays.
+  """
+
+  result = []
+  for i in range(len(array1)):
+    result.append(array1[i] - array2[i])
+
+  return result
